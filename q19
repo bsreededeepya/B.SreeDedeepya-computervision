@@ -1,0 +1,21 @@
+import cv2
+import numpy as np
+
+# Load an image
+image = cv2.imread("C:/Users/bsree/OneDrive/Pictures/krishna/flower1.png", cv2.IMREAD_GRAYSCALE)
+
+# Apply Sobel filters for edge detection along X and Y axes
+sobel_x = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=3)  # Sobel along X-axis
+sobel_y = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=3)  # Sobel along Y-axis
+
+# Compute the gradient magnitude (combine X and Y gradients)
+gradient_magnitude = np.sqrt(sobel_x ** 2 + sobel_y ** 2)
+
+# Convert the result to an 8-bit image
+gradient_magnitude = cv2.convertScaleAbs(gradient_magnitude)
+
+# Display the original image and the XY axis edge image
+cv2.imshow("Original image", image)
+cv2.imshow("Sobel XY-axis Edge Detection", gradient_magnitude)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
